@@ -21,8 +21,13 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-
-    - name: Build Kernel
+      
+    - name: test adding libncurses
+      run: |
+        wget http://archive.ubuntu.com/ubuntu/pool/universe/n/ncurses/libtinfo5_6.4-2_amd64.deb && sudo dpkg -i libtinfo5_6.4-2_amd64.deb && rm -f libtinfo5_6.4-2_amd64.deb
+        wget http://archive.ubuntu.com/ubuntu/pool/universe/n/ncurses/libncurses5_6.4-2_amd64.deb && sudo dpkg -i libncurses5_6.4-2_amd64.deb && rm -f libncurses5_6.4-2_amd64.deb
+        sudo apt install libncurses5
+    - name: Build Kernel test
       uses: ./
       with:
           kernel-url: https://github.com/testingweb624/android_kernel_xiaomi_sdm845
