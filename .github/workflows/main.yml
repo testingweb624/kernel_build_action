@@ -19,23 +19,33 @@ jobs:
       contents: write
 
     steps:
+    - name: Setup Dependencies
+        run:|
+        wget http://archive.ubuntu.com/ubuntu/pool/universe/n/ncurses/libtinfo5_6.4-2_amd64.deb && sudo dpkg -i libtinfo5_6.4-2_amd64.deb && rm -f libtinfo5_6.4-2_amd64.deb
+        shell:bash
+        
+    - name: Setup again
+        run:|
+          wget http://archive.ubuntu.com/ubuntu/pool/universe/n/ncurses/libncurses5_6.4-2_amd64.deb && sudo dpkg -i libncurses5_6.4-2_amd64.deb && rm -f libncurses5_6.4-2_amd64.deb
+        shell:bash
+        
     - name: Checkout
       uses: actions/checkout@v4
 
     - name: Build Kernel
       uses: ./
       with:
-          kernel-url: https://github.com/AcmeUI-Devices/android_kernel_xiaomi_cas
+          kernel-url: https://github.com/testingweb624/android_kernel_xiaomi_sdm845
           kernel-dir: msm-4.19
-          kernel-branch: taffy
-          config: cas_defconfig
+          kernel-branch: lineage-21
+          config: enchilada_defconfig
           arch: arm64
           aosp-gcc: true
           aosp-clang: true
           ksu: true
           ksu-version: main
-          android-version: 12
-          aosp-clang-version: r383902
+          android-version: 14
+          aosp-clang-version: 3289846
           python-27: true
           disable-lto: true
           anykernel3: true
